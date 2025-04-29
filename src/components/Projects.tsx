@@ -28,7 +28,7 @@ const Projects: React.FC = () => {
         "User authentication",
         "Firebase Firestore for data management"
       ],
-      demoLink: "#",
+      demoLink: "https://chowchoice.netlify.app/",
       codeLink: "https://github.com/PragyaRai417"
     },
     {
