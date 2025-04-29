@@ -7,13 +7,8 @@ const Navbar: React.FC = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 10) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
-      }
+      setIsScrolled(window.scrollY > 10);
     };
-
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -29,54 +24,65 @@ const Navbar: React.FC = () => {
   ];
 
   return (
-    <header className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-      isScrolled ? 'bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm shadow-md' : 'bg-transparent'
-    }`}>
-      <nav className="container mx-auto px-6 py-4">
-        <div className="flex justify-between items-center">
-          <a href="#home" className="text-xl font-bold text-blue-600 dark:text-blue-400">
-          </a>
+    <header
+      className={`fixed top-0 w-full z-50 transition-all duration-300 ${
+        isScrolled
+          ? 'bg-white/90 dark:bg-gray-900/90 shadow-md'
+          : 'bg-transparent'
+      }`}
+    >
+      <nav className="container mx-auto px-6 py-4 flex items-center justify-between">
+        {/* Logo */}
+        <a href="#home" className="text-2xl font-bold text-blue-600 dark:text-blue-400">
+        </a>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex space-x-8">
-            {navLinks.map(link => (
+        {/* Desktop Menu */}
+        <div className="hidden md:flex space-x-8">
+          {navLinks.map((link) => (
+            <a
+              key={link.name}
+              href={link.href}
+              className="text-base font-medium text-gray-700 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 transition-colors duration-300"
+            >
+              {link.name}
+            </a>
+          ))}
+        </div>
+
+        {/* Mobile Menu Button */}
+        <button
+          onClick={() => setIsOpen(!isOpen)}
+          className="md:hidden text-gray-700 dark:text-gray-300 transition-colors duration-300"
+          aria-label="Toggle menu"
+        >
+          {isOpen ? <X size={28} /> : <Menu size={28} />}
+        </button>
+
+        {/* Full Width Mobile Menu */}
+        <div
+          className={`fixed top-0 right-0 h-full w-full bg-white dark:bg-gray-900 transform ${
+            isOpen ? 'translate-x-0' : 'translate-x-full'
+          } transition-transform duration-500 ease-in-out md:hidden`}
+        >
+          <div className="flex flex-col p-6 space-y-8">
+            <button
+              onClick={() => setIsOpen(false)}
+              className="self-end text-gray-700 dark:text-gray-300"
+            >
+              <X size={28} />
+            </button>
+            {navLinks.map((link) => (
               <a
                 key={link.name}
                 href={link.href}
-                className="text-sm font-medium text-gray-700 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 transition-colors"
+                className="text-xl font-semibold text-gray-700 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 transition-colors duration-300"
+                onClick={() => setIsOpen(false)}
               >
                 {link.name}
               </a>
             ))}
           </div>
-
-          {/* Mobile Navigation Toggle */}
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden text-gray-700 dark:text-gray-300"
-            aria-label="Toggle menu"
-          >
-            {isOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
         </div>
-
-        {/* Mobile Navigation Menu */}
-        {isOpen && (
-          <div className="md:hidden mt-4 pb-4 animate-fade-in-down">
-            <div className="flex flex-col space-y-4">
-              {navLinks.map(link => (
-                <a
-                  key={link.name}
-                  href={link.href}
-                  className="text-sm font-medium text-gray-700 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 transition-colors"
-                  onClick={() => setIsOpen(false)}
-                >
-                  {link.name}
-                </a>
-              ))}
-            </div>
-          </div>
-        )}
       </nav>
     </header>
   );
