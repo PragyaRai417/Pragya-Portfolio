@@ -15,7 +15,6 @@ const Skills: React.FC = () => {
     { name: 'React.js', category: 'frontend' },
     { name: 'Tailwind CSS', category: 'frontend' },
     { name: 'Bootstrap', category: 'frontend' },
-    { name: 'TypeScript', category: 'frontend' }
   ];
   
   const toolSkills: Skill[] = [
