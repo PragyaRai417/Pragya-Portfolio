@@ -94,7 +94,7 @@ const Projects: React.FC = () => {
   }, []);
 
   return (
-    <section id="projects" className="py-20 bg-gray-50 dark:bg-gray-900">
+    <section id="projects" className="py-20 bg-gray-50 dark:bg-gray-900 overflow-x-hidden">
       <div 
         ref={projectsRef}
         className="container mx-auto px-6 transition-all duration-1000 transform translate-y-10 opacity-0"
